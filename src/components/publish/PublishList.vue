@@ -1,8 +1,10 @@
 <template>
 
   <main>
-      <div class="loader"
-          v-if="!$store.state.page.comps.length"></div>
+      <div 
+          class="loader"
+          v-if="!$store.state.page.comps.length"
+      ></div>
       <component 
           v-show="$store.state.page.comps.length"
           v-for="cmp in cmpTemplates" 
@@ -27,9 +29,7 @@ export default {
     MapCompPub
   },
   created(){
-    console.log('publish created entered');
     if (!this.$store.state.page.comps.length) {
-      console.log('publish created if entered');
       this.$store.commit('getPage');
     }
   },

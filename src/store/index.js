@@ -5,15 +5,6 @@ import pageService from '../services/page.service'
 
 Vue.use(Vuex);
 
-// console.log('axios test');
-// axios.get(`http://localhost:3003/data/template`)
-//     .then(response => {
-//       console.log('response.data: ',response.data);
-//     })
-//     .catch(e => {
-//       console.log('GET error: ', e);
-//     })
-
 const store = new Vuex.Store({
   state: {
 
@@ -123,14 +114,12 @@ const store = new Vuex.Store({
     setNewCoords(state, { marker }) {
       let editPos = store.getters.getEditedCompIdx;
       state.page.comps[editPos].marker = marker;
-      // pageService.savePage(state.page);
     },
 
     initPage(state) {
       pageService.addPage(state.page)
         .then(newPage => {
           state.page = newPage;
-          console.log('page id added', newPage);
         })
         .catch(err => {
           console.error('add page error: ', err);
@@ -138,13 +127,10 @@ const store = new Vuex.Store({
     },
     updatePage(state) {
       pageService.updatePage(state.page);
-      console.log('update sent', state.page);
     },
     getPage(state) {
-      console.log('state.page', state.page);
       pageService.getPage()
         .then(newPage => {
-          console.log('pageService.getPage.newPage: ', newPage);
           state.page = newPage;
         })
         .catch(err => {

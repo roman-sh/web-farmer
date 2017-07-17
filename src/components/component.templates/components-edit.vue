@@ -37,7 +37,6 @@ section {
     right: 1em;
     z-index: 9;
     overflow: hidden;
-    /*border-radius: 1em;*/
     box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.5);
 }
 
@@ -51,8 +50,4 @@ button {
     font-size: 1.5em;
 }
 
-/*button:first-child {
-    left: 1.5em;
-    font-size: 25px;
-}*/
 </style>

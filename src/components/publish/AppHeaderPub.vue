@@ -25,7 +25,6 @@ div {
 }
 
 p {
-  /*font-family: 'Ubuntu', sans-serif;*/
   font-family: sans-serif;
   font-size: 2em;
   padding: 3em;;

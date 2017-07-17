@@ -7,7 +7,6 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 const getPage = () => {
-    console.log('getPage entered');
     // getting page._id from URL
     let publishUrl = window.location.href.split('/');
     let publishUrlId = publishUrl[publishUrl.length-1];
@@ -37,20 +36,10 @@ const updatePage = page => {
         .catch(err => {
           console.error('page.service.updatePage error: ', err);
         });
-    // return axios.put(`${pageUrl}/${page._id}`, page)
-    //     .then(function (res) {
-    //         const updatedPage = res.data;
-    //         return updatedPage;
-    //     })
+ 
 }
-// const savePage = page => {
-//     // console.log('page.service-savePage-page: ',page)
-//     if (page._id)   return updatePage(page);
-//     else            return addPage(page);
-// }
 
 export default {
-    // savePage
     updatePage,
     addPage,
     getPage

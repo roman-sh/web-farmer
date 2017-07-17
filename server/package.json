@@ -3,7 +3,8 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "postinstall": "npm install express"
   },
   "dependencies": {
     "babel-core": "^6.14.0",
