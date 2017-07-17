@@ -27,9 +27,9 @@ export default {
 
 <style scoped>
     section {
-        position: absolute;
+        position: fixed;
         z-index: 999;
-        top: 5%;
+        top: 10%;
         left: 20%;
         width: 60vw;
         background-color: rgba(128, 147, 178, .9);

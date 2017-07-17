@@ -28,7 +28,7 @@ const store = new Vuex.Store({
       {
         type: 'title-cmpn',
         txt: {
-          title: 'I am a title',
+          title: 'Decore singulis per et',
           paragraph: 'Vel ut esse soluta percipitur, an utamur erroribus definitionem has, ad invidunt disputationi mei. Decore singulis per et, id pri nostrud admodum efficiantur, vix congue tractatos laboramus ut. Facilisi complectitur te ius. Pro ut probo tractatos, cu his audire civibus electram, qui hinc soleat commodo id. Mea ex iusto splendide. Dolorum euripidis theophrastus pro an.'
         },
         style: {
@@ -138,6 +138,7 @@ const store = new Vuex.Store({
     },
     updatePage(state) {
       pageService.updatePage(state.page);
+      console.log('update sent', state.page);
     },
     getPage(state) {
       console.log('state.page', state.page);

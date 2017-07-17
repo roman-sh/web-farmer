@@ -21,7 +21,7 @@ export default new Router({
     },
     {
       path: '/publish/:id',
-      name: 'TemplateListPub',
+      name: 'PublishList',
       component: PublishList
     }
   ],

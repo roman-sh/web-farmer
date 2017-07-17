@@ -1,7 +1,10 @@
 <template>
 
   <main>
+      <div class="loader"
+          v-if="!$store.state.page.comps.length"></div>
       <component 
+          v-show="$store.state.page.comps.length"
           v-for="cmp in cmpTemplates" 
           :key="cmp.id" :is="cmp.type + '-pub'"
           :cmpData="cmp"
@@ -25,10 +28,10 @@ export default {
   },
   created(){
     console.log('publish created entered');
-    // if (!this.$store.state.page.comps.length) {
+    if (!this.$store.state.page.comps.length) {
       console.log('publish created if entered');
       this.$store.commit('getPage');
-    // }
+    }
   },
   computed: {
     cmpTemplates() {
@@ -56,4 +59,32 @@ export default {
   margin: auto;
   }
 
+  .loader,
+  .loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+
+.loader {
+  margin: 60px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(96, 52, 52, 0.2);
+  border-right: 1.1em solid rgba(127, 62, 62, 0.2);
+  border-bottom: 1.1em solid rgba(112, 58, 58, 0.2);
+  border-left: 1.1em solid #743333;
+  transform: translateZ(0);
+  animation: load8 1.1s infinite linear;
+}
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>

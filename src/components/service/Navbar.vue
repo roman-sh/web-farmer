@@ -24,7 +24,7 @@ export default {
     methods: {
         goToPublish() {
             this.$store.commit('updatePage');
-            this.$router.push({name:'TemplateListPub',params:{id:this.$store.state.page._id}})
+            this.$router.push({name:'PublishList',params:{id:this.$store.state.page._id}})
         },
         handleScroll() {
             if (!document.body.scrollTop) {
