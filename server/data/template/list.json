@@ -1,0 +1,50 @@
+[
+    {
+        "type": "title-cmpn",
+        "txt": {
+            "title": "I am a title",
+            "paragraph": "Vel ut esse soluta percipitur, an utamur erroribus definitionem has, ad invidunt disputationi mei. Decore singulis per et, id pri nostrud admodum efficiantur, vix congue tractatos laboramus ut. Facilisi complectitur te ius. Pro ut probo tractatos, cu his audire civibus electram, qui hinc soleat commodo id. Mea ex iusto splendide. Dolorum euripidis theophrastus pro an."
+        },
+        "style": {
+            "backgroundColor": "white",
+            "color": "black"
+        }
+    },
+    {
+        "type": "cat",
+        "url": "http://thecatapi.com/api/images/get?format=src&type=jpg",
+        "txt": "Meow",
+        "style": {
+            "backgroundColor": "white",
+            "color": "black"
+        }
+    },
+    {
+        "type": "app-header",
+        "imgUrl": "https://s3.amazonaws.com/assets-farmersweb-com/assets/home/header-farm-lg-8-90c1ac2ffde2f3411b7d0671dc51956a.jpg",
+        "txt": "Lorem ipsum dolor sit amet, vis dicta efficiendi at, essent consulatu ea has. Populo explicari eam ex, prima expetenda reprimique no his.",
+        "style": {
+            "color": "black"
+        }
+    },
+    {
+        "type": "carousel",
+        "imgUrls": [
+            "https://s-media-cache-ak0.pinimg.com/originals/f6/b0/ed/f6b0ed852c763dc4d2fd57fd638a3bb5.jpg",
+            "http://allswalls.com/images/cat-grass-wallpaper-1.jpg",
+            "https://stuffwhitepeoplelike.files.wordpress.com/2010/03/830161744_bce0da8cc4.jpg",
+            "http://www.njfamily.com/PickYourOwnFruit.png",
+            "http://il6.picdn.net/shutterstock/videos/2890054/thumb/1.jpg"
+        ],
+        "style": {
+            "backgroundColor": "white"
+        }
+    },
+    {
+        "type": "mapComp",
+        "marker": {
+            "lat": 32.956638,
+            "lng": 35.739718
+        }
+    }
+]
