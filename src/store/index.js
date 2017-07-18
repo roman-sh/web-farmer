@@ -45,10 +45,10 @@ const store = new Vuex.Store({
         type: 'carousel',
         imgUrls: [
           'https://s-media-cache-ak0.pinimg.com/originals/f6/b0/ed/f6b0ed852c763dc4d2fd57fd638a3bb5.jpg',
-          'http://allswalls.com/images/cat-grass-wallpaper-1.jpg',
           'https://stuffwhitepeoplelike.files.wordpress.com/2010/03/830161744_bce0da8cc4.jpg',
-          'http://www.njfamily.com/PickYourOwnFruit.png',
-          'http://il6.picdn.net/shutterstock/videos/2890054/thumb/1.jpg',
+          'http://allswalls.com/images/cat-grass-wallpaper-1.jpg',
+          'https://www.njfamily.com/PickYourOwnFruit.png',
+          'https://il6.picdn.net/shutterstock/videos/2890054/thumb/1.jpg',
         ],
         style: {
           backgroundColor: 'white',
@@ -77,11 +77,13 @@ const store = new Vuex.Store({
       let userCmpData = JSON.parse(JSON.stringify(cmpData));
       userCmpData.id = state.cmpID++;
       state.page.comps.push(userCmpData);
+      store.commit('updatePage');
     },
     deleteUserCmp(state, { cmpId }) {
       let deletePos = state.page.comps.findIndex(userCmp => userCmp.id === cmpId);
       if (deletePos !== -1) {
         state.page.comps.splice(deletePos, 1);
+        store.commit('updatePage');
       }
     },
 
@@ -98,27 +100,33 @@ const store = new Vuex.Store({
     changeBgColor(state, { backgroundColor }) {
       let editPos = store.getters.getEditedCompIdx;
       state.page.comps[editPos].style.backgroundColor = backgroundColor;
+      store.commit('updatePage');
     },
     changeTxtColor(state, { color }) {
       let editPos = store.getters.getEditedCompIdx;
       state.page.comps[editPos].style.color = color;
+      store.commit('updatePage');
     },
     setNewImgUrl(state, payload) {
       let editPos = store.getters.getEditedCompIdx;
       state.page.comps[editPos].imgUrls.splice([payload.imgNum - 1], 1, payload.imgUrl);
+      store.commit('updatePage');
     },
     setNewBgImgUrl(state, { imgUrl }) {
       let editPos = store.getters.getEditedCompIdx;
       state.page.comps[editPos].imgUrl = imgUrl;
+      store.commit('updatePage');
     },
     setNewCoords(state, { marker }) {
       let editPos = store.getters.getEditedCompIdx;
       state.page.comps[editPos].marker = marker;
+      store.commit('updatePage');
     },
 
     initPage(state) {
       pageService.addPage(state.page)
         .then(newPage => {
+          console.log('store-init-then');
           state.page = newPage;
         })
         .catch(err => {
@@ -127,10 +135,12 @@ const store = new Vuex.Store({
     },
     updatePage(state) {
       pageService.updatePage(state.page);
+      console.log('store-update');
     },
     getPage(state) {
       pageService.getPage()
         .then(newPage => {
+          console.log('store-get-then');
           state.page = newPage;
         })
         .catch(err => {

@@ -1,13 +1,6 @@
-// Minimal Simple REST API Handler (With MongoDB and Socket.io)
-// Plus support for simple login and session
-// Plus support for file upload
-// Author: Yaron Biton misterBIT.co.il
-
 "use strict";
 
-var port = process.env.PORT || 3003;
-
-const cl = console.log;
+var cl = console.log;
 
 const express = require('express'),
 	bodyParser = require('body-parser'),
@@ -15,42 +8,52 @@ const express = require('express'),
 	mongodb = require('mongodb')
 
 const clientSessions = require("client-sessions");
-const upload = require('./uploads');
+// const upload = require('./uploads');
 const app = express();
 
-app.use('/', express.static(__dirname));
+var port = process.env.PORT || 3003;
 
 var corsOptions = {
 	origin: /http:\/\/localhost:\d+/,
 	credentials: true
 };
 
-const serverRoot = 'http://localhost:3003/';
-const baseUrl = serverRoot + 'data';
+// var corsOptions = {
+// 	origin: /.*/,
+// 	credentials: true
+// };
 
+// const serverRoot = 'http://localhost:3003/';
+// const baseUrl = serverRoot + 'data';
 
-app.use(express.static('uploads'));
+// app.use(express.static('uploads'));
 
+app.use('/', express.static(__dirname));
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(clientSessions({
-	cookieName: 'session',
-	secret: 'C0d1ng 1s fun 1f y0u kn0w h0w', // set this to a long random string!
-	duration: 30 * 60 * 1000,
-	activeDuration: 5 * 60 * 1000,
-}));
+
+// app.use(clientSessions({
+// 	cookieName: 'session',
+// 	secret: 'C0d1ng 1s fun 1f y0u kn0w h0w', // set this to a long random string!
+// 	duration: 30 * 60 * 1000,
+// 	activeDuration: 5 * 60 * 1000,
+// }));
 
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+// const io = require('socket.io')(http);
 
+// var prm = dbConnect()
+// prm.then((res)=>{cl(res)}).catch((err)=>{cl(err)})
+
+// app.use('/',express.static)
 
 function dbConnect() {
 
 	return new Promise((resolve, reject) => {
 		// Connection URL
-		// var url = 'mongodb://localhost:27017/seed';
 		var url = 'mongodb://test:test1@ds129352.mlab.com:29352/seed';
+		// var url = 'mongodb://localhost:27017/weddix';
 		// Use connect method to connect to the Server
 		mongodb.MongoClient.connect(url, function (err, db) {
 			if (err) {
@@ -58,7 +61,7 @@ function dbConnect() {
 				reject(err);
 			}
 			else {
-				//cl("Connected to DB");
+				cl("Connected to DB");
 				resolve(db);
 			}
 		});
@@ -86,12 +89,14 @@ app.get('/data/:objType', function (req, res) {
 
 // GETs a single
 app.get('/data/:objType/:id', function (req, res) {
+	cl('inside GET')
 	const objType = req.params.objType;
 	const objId = req.params.id;
 	cl(`Getting you an ${objType} with id: ${objId}`);
 	dbConnect()
 		.then((db) => {
 			const collection = db.collection(objType);
+			console.log('db',db);
 			let _id;
 			try {
 				_id = new mongodb.ObjectID(objId);
@@ -138,9 +143,9 @@ app.delete('/data/:objType/:id', function (req, res) {
 });
 
 // POST - adds 
-app.post('/data/:objType', upload.single('file'), function (req, res) {
+app.post('/data/:objType', function (req, res) {
 	//console.log('req.file', req.file);
-	console.log('req.body', req.body);
+	// console.log('req.body', req.body);
 
 	const objType = req.params.objType;
 	cl("POST for " + objType);
@@ -148,9 +153,9 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 	const obj = req.body;
 	delete obj._id;
 	// If there is a file upload, add the url to the obj
-	if (req.file) {
-		obj.imgUrl = serverRoot + req.file.filename;
-	}
+	// if (req.file) {
+	// 	obj.imgUrl = serverRoot + req.file.filename;
+	// }
 
 	dbConnect().then((db) => {
 		const collection = db.collection(objType);
@@ -193,68 +198,62 @@ app.put('/data/:objType/:id', function (req, res) {
 });
 
 // Basic Login/Logout/Protected assets
-app.post('/login', function (req, res) {
-	dbConnect().then((db) => {
-		db.collection('user').findOne({ username: req.body.username, pass: req.body.pass }, function (err, user) {
-			if (user) {
-				cl('Login Succesful');
-				delete user.pass;
-				req.session.user = user;  //refresh the session value
-				res.json({ token: 'Beareloginr: puk115th@b@5t', user });
-			} else {
-				cl('Login NOT Succesful');
-				req.session.user = null;
-				res.json(403, { error: 'Login failed' })
-			}
-		});
-	});
-});
+// app.post('/login', function (req, res) {
+// 	dbConnect().then((db) => {
+// 		db.collection('user').findOne({ username: req.body.username, pass: req.body.pass }, function (err, user) {
+// 			if (user) {
+// 				cl('Login Succesful');
+// 				delete user.pass;
+// 				req.session.user = user;  //refresh the session value
+// 				res.json({ token: 'Beareloginr: puk115th@b@5t', user });
+// 			} else {
+// 				cl('Login NOT Succesful');
+// 				req.session.user = null;
+// 				res.json(403, { error: 'Login failed' })
+// 			}
+// 		});
+// 	});
+// });
 
-app.get('/logout', function (req, res) {
-	req.session.reset();
-	res.end('Loggedout');
-});
+// app.get('/logout', function (req, res) {
+// 	req.session.reset();
+// 	res.end('Loggedout');
+// });
 
-function requireLogin(req, res, next) {
-	if (!req.session.user) {
-		cl('Login Required');
-		res.json(403, { error: 'Please Login' })
-	} else {
-		next();
-	}
-};
-app.get('/protected', requireLogin, function (req, res) {
-	res.end('User is loggedin, return some data');
-});
+// function requireLogin(req, res, next) {
+// 	if (!req.session.user) {
+// 		cl('Login Required');
+// 		res.json(403, { error: 'Please Login' })
+// 	} else {
+// 		next();
+// 	}
+// };
+// app.get('/protected', requireLogin, function (req, res) {
+// 	res.end('User is loggedin, return some data');
+// });
 
 app.use('/*', express.static(__dirname));
 
 // Kickup our server 
 // Note: app.listen will not work with cors and the socket
-// app.listen(3003, function () {
-http.listen(port, function () {
-	console.log(`misterREST server is ready at ${baseUrl}`);
-	console.log(`GET (list): \t\t ${baseUrl}/{entity}`);
-	console.log(`GET (single): \t\t ${baseUrl}/{entity}/{id}`);
-	console.log(`DELETE: \t\t ${baseUrl}/{entity}/{id}`);
-	console.log(`PUT (update): \t\t ${baseUrl}/{entity}/{id}`);
-	console.log(`POST (add): \t\t ${baseUrl}/{entity}`);
-
+app.listen(port, function () {
+// http.listen(3003, function () {
+	console.log('server started ' + port);
 });
 
 
-io.on('connection', function (socket) {
-	console.log('a user connected');
-	socket.on('disconnect', function () {
-		console.log('user disconnected');
-	});
-	socket.on('chat message', function (msg) {
-		// console.log('message: ' + msg);
-		io.emit('chat message', msg);
-	});
-});
+// io.on('connection', function (socket) {
+// 	console.log('a user connected');
+// 	socket.on('disconnect', function () {
+// 		console.log('user disconnected');
+// 	});
+// 	socket.on('chat message', function (msg) {
+// 		// console.log('message: ' + msg);
+// 		io.emit('chat message', msg);
+// 	});
+// });
 
-cl('WebSocket is Ready');
+// cl('WebSocket is Ready');
 
 // Some small time utility functions
 
