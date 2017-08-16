@@ -4,6 +4,7 @@
     <gmap-map
       :center="cmpData.marker"
       :zoom="10"
+      :options="{scrollwheel: false}"
       style="width: 100%; height: 300px"
     >
       <gmap-marker

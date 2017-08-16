@@ -32,6 +32,7 @@ export default {
         top: 10%;
         left: 20%;
         width: 60vw;
+        height: 80%;
         background-color: rgba(128, 147, 178, .9);
         border-radius: 5px;
         overflow-y: scroll;

@@ -23,7 +23,7 @@ export default {
     },
     methods: {
         goToPublish() {
-            // this.$store.commit('updatePage');
+            this.$store.commit('updatePage');
             this.$router.push({name:'PublishList',params:{id:this.$store.state.page._id}})
         },
         handleScroll() {
