@@ -126,7 +126,6 @@ const store = new Vuex.Store({
     initPage(state) {
       pageService.addPage(state.page)
         .then(newPage => {
-          console.log('store-init-then');
           state.page = newPage;
         })
         .catch(err => {
@@ -135,12 +134,10 @@ const store = new Vuex.Store({
     },
     updatePage(state) {
       pageService.updatePage(state.page);
-      console.log('store-update');
     },
     getPage(state) {
       pageService.getPage()
         .then(newPage => {
-          console.log('store-get-then');
           state.page = newPage;
         })
         .catch(err => {

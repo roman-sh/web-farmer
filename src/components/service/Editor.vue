@@ -2,7 +2,7 @@
     <vue-draggable-resizable 
         class="editor-container" 
         :resizable="false" 
-        style="height: fit-content; z-index: 99;">
+        style="height: fit-content; z-index: 99; position: fixed;">
         <span @click="handleCloseEditor">&Cross;</span>
         <section v-show="EditedCompType === 'cat'">
             <p>BG Color
@@ -29,6 +29,9 @@
                 <input type="url" placeholder="image URL">
                 <input @click="handleNewBgImgUrl($event)" type="submit">
             </p>
+        </section>
+        <section v-show="EditedCompType === 'title-cmpn'">
+            <p>Click on text to edit</p>
         </section>
     </vue-draggable-resizable>
 </template>
@@ -80,7 +83,9 @@ export default {
 
 <style scoped>
 .editor-container {
-    position: fixed;
+    /* position: fixed; */
+    margin-top: 56px;
+    margin-left: 3px; 
     background-color: rgba(128, 147, 178, .9);
     padding: 15px;
     border-radius: 5px;

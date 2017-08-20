@@ -17,7 +17,6 @@ const getId = () => {
 const getPage = () => {
     return axios.get(`${pageUrl}/${getId()}`)
         .then(function (res) {
-            console.log('service-get-then')
             const page = res.data;
             return page;
         })
@@ -29,7 +28,6 @@ const getPage = () => {
 const addPage = page => {
     return axios.post(pageUrl, page)
         .then(function (res) {
-            console.log('service-post-then')
             const addedPage = res.data;
             return addedPage;
         })
@@ -40,7 +38,6 @@ const addPage = page => {
 const updatePage = page => {
     axios.put(`${pageUrl}/${page._id}`, page)
         .then(function (res) {
-            console.log('service-put-then')
         })
         .catch(err => {
           console.error('page.service.updatePage error: ', err);

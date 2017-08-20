@@ -28,16 +28,13 @@ export default {
     CarouselPub,
     MapCompPub
   },
-  created(){
-    console.log('publishList-created');
+  created() {
     if (!this.$store.state.page.comps.length) {
-      console.log('publishList-created-if(!this.$store.state.page.comps.length)');
       this.$store.commit('getPage');
     }
   },
   computed: {
     cmpTemplates() {
-      console.log('publishList-computed-cmpTemplates', this.$store.state.page.comps)
       return this.$store.state.page.comps;
     }
   }

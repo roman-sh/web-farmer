@@ -8,14 +8,10 @@
 <script>
 export default {
     props: ['cmpId'],
-    data() {
-        return {
-        }
-    },
+    
     methods: {
         deleteComponent() {
-            var verifyDeletion = confirm('are you sure you want to delete this component?')
-            console.log(this.cmpId);
+            var verifyDeletion = confirm('Are you sure you want to delete this component?')
 
             if (verifyDeletion) {
                 this.$store.commit({ type: 'deleteUserCmp', cmpId: this.cmpId })
